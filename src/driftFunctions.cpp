@@ -126,7 +126,7 @@ TensorDoub masterHessDrift(
 ) {
 	const DriftParams* params = (DriftParams*)sp;
 	switch (params->switchKey) {
-	case 0: 
+	case 0: default:
 		return TensorDoub();
 	case 3:
 		return TensorDoub(
@@ -231,7 +231,7 @@ double masterDivDrift(
 	const DriftParams* params = (DriftParams*)sp;
 
 	switch (params->switchKey) {
-	case 0:
+	case 0: default:
 		return params->a * 2 + 2;
 	case 5:
 		return -3 - 3 * z.x;
