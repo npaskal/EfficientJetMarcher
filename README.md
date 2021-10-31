@@ -1,5 +1,6 @@
+
 # EfficientJetMarcher
-This project is an implementation of the Efficient Jet Marching method for solving for the quasi-potential of 2 dimensional stochastic differential equations, 
+This project is an implementation of the Efficient Jet Marching method for solving for the quasi-potential of 2 dimensional stochastic differential equations,
 
 dX(t)= b(X(t))dt + ε dW(t), 
 

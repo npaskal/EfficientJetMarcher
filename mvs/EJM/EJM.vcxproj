@@ -71,14 +71,14 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>C:\Users\nicho\OneDrive\Documents\GitHub\EfficientJetMarcher\include;$(EIGEN_PATH);$(IncludePath)</IncludePath>
+    <IncludePath>C:\Users\nicho\OneDrive\Documents\GitHub\EfficientJetMarcher\include;C:\Users\nicho\OneDrive\Documents\GitHub\EfficientJetMarcher\include;$(EIGEN_PATH);$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>..\..\include;$(EIGEN_PATH);$(IncludePath)</IncludePath>
+    <IncludePath>C:\Users\nicho\OneDrive\Documents\GitHub\EfficientJetMarcher\include;..\..\include;$(EIGEN_PATH);$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
@@ -142,18 +142,25 @@
   <ItemGroup>
     <ClCompile Include="..\..\src\binarytree.cpp" />
     <ClCompile Include="..\..\src\fastmarch.cpp" />
-    <ClCompile Include="..\..\src\fastmarchASR.cpp" />
+    <ClCompile Include="..\..\src\fastmarchEJM.cpp" />
     <ClCompile Include="..\..\src\fastmarchOLIM.cpp" />
     <ClCompile Include="..\..\src\main.cpp" />
-    <ClCompile Include="..\..\src\updater.cpp" />
+    <ClCompile Include="..\..\src\driftFunctions.cpp" />
+    <ClCompile Include="..\..\src\updaterHermite.cpp" />
+    <ClCompile Include="..\..\src\updaterLinear.cpp" />
+    <ClCompile Include="..\..\src\utility.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\include\binarytree.h" />
     <ClInclude Include="..\..\include\fastmarch.h" />
-    <ClInclude Include="..\..\include\fastmarchASR.h" />
+    <ClInclude Include="..\..\include\fastMarchEJM.h" />
     <ClInclude Include="..\..\include\fastmarchOLIM.h" />
-    <ClInclude Include="..\..\include\structs.h" />
-    <ClInclude Include="..\..\include\updater.h" />
+    <ClInclude Include="..\..\include\linalg.h" />
+    <ClInclude Include="..\..\include\driftFunctions.h" />
+    <ClInclude Include="..\..\include\updaterBase.h" />
+    <ClInclude Include="..\..\include\updaterHermite.h" />
+    <ClInclude Include="..\..\include\updaterLinear.h" />
+    <ClInclude Include="..\..\include\utility.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
