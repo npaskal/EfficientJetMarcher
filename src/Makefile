@@ -2,14 +2,14 @@ IDIR=../include
 CC=g++
 CFLAGS=-I$(IDIR) -O3
 
-_DEPS = binarytree.h fastmarch.h fastmarchASR.h fastmarchOLIM.h \
-       structs.h updater.h
-DEPS = $(patsubst %,$(IDIR)/%,$(_DEPS))
-
 ODIR=../obj
 EXEC=../main
 
-_OBJ=binarytree.o fastmarch.o fastmarchASR.o fastmarchOLIM.o main.o updater.o
+
+_DEPS = binarytree.h driftFunctions.h fastmarch.h fastMarchEJM.h fastmarchOLIM.h  linalg.h updaterBase.h updaterLinear.h updaterHermite.h utility.h
+DEPS = $(patsubst %,$(IDIR)/%,$(_DEPS))
+
+_OBJ=main.o binarytree.o driftFunctions.o fastmarch.o fastmarchEJM.o fastmarchOLIM.o updaterHermite.o updaterLinear.o utility.o
 OBJ= $(patsubst %,$(ODIR)/%,$(_OBJ))
 
 $(ODIR)/%.o: %.cpp $(DEPS)

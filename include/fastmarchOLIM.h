@@ -1,39 +1,57 @@
-#ifndef _FASTMARCHOLIM_H
-#define _FASTMARCHOLIM_H
+#pragma once
+/*
+	\file:		fastMarchOLIM.h
+	\brief:		This file declares the fastMarchOLIM class.
+	\author:	Nick Paskal
+	\date:		10/27/2021
+*/
 #include <cmath>
-#include <tuple>
 #include <vector>
-#include <string>
-#include "structs.h"
 #include "fastmarch.h"
-#include "binarytree.h"
-#include "updater.h"
-
-// Better to save stencils as (xi,yi) than as indexes
+#include "updaterBase.h"
+#include "driftFunctions.h"
 
 
 
-
+// class for OLIM methods for computing quasi-potential
 class FastMarchOLIM : public FastMarch {
 public:
-	int update_radius;
-	std::vector<int> acceptedNeighborCount;
+	int updateRadius; // search radius for neighbors
 
-
-
-	FastMarchOLIM(const GridInfo& grid, const Updater& upIn, 
-		const RunOptions& opIn, const SpeedInfo& spIn, int update_radius_in) :
-		FastMarch(grid, upIn, opIn, spIn), update_radius(update_radius_in),
-		acceptedNeighborCount(std::vector<int>(grid.gridLength(),0)) {
-		for (int ind = 0; ind < grid.gridLength(); ind++) {
+	// number of Accepted neighbors for each mesh point
+	std::vector<int> acceptedNeighborCount; 
+	
+	// constructor
+	FastMarchOLIM(
+		const MeshInfo& mesh,  
+		UpdaterBase& upIn, 
+		const RunOptions& opIn, 
+		const SpeedInfo& spIn, 
+		int update_radius_in
+	) :
+		FastMarch(mesh, upIn, opIn, spIn), 
+		updateRadius(update_radius_in),
+		acceptedNeighborCount(std::vector<int>(mesh.gridLength(),0)) 
+	{
+		for (int ind = 0; ind < mesh.gridLength(); ind++) {
 			if (group[ind] == ACCEPTED) {
 				group[ind] = FRONT;
 			}
 		}
-		const std::vector<int> neighborIndices{ -grid.nx - 1,-grid.nx,-grid.nx + 1,-1,1,grid.nx - 1,grid.nx,grid.nx + 1 };
-		for (int ind = 0; ind < grid.gridLength(); ind++) {
+		const std::vector<int> neighborIndices{ 
+			-mesh.nx - 1,
+			-mesh.nx,
+			-mesh.nx + 1,
+			-1,
+			1,
+			mesh.nx - 1,
+			mesh.nx,
+			mesh.nx + 1 };
+		for (int ind = 0; ind < mesh.gridLength(); ind++) {
 			for (const int k : neighborIndices) {
-				if (!invalidIndex(ind + k) && (group[ind + k] == FRONT || group[ind + k] == ACCEPTED) ) {
+				if (!isInvalidIndex(ind + k) 
+					&& (group[ind + k] == FRONT 
+						|| group[ind + k] == ACCEPTED) ) {
 					++acceptedNeighborCount[ind];
 				}
 			}
@@ -42,13 +60,19 @@ public:
 			
 		}
 	}
+
+	// initialize the mesh points near the attractor
 	void initializeSolution() override;
-	void runStep(bool& kill) override;
+
+	// run a step of Fast March OLIM unless the kill condition is met
+	void runStep(bool& kill3DNewtonSolver) override;
+
+	// update the neighbors of the newly minted Accepted point
 	void updateNeighbors(int ind) override;
-	bool initialPoint(int index) override;
+
+	// check if the given mesh point should be initialized
+	bool isInitialMeshPoint(int index) override;
 };
 
 
 
-
-#endif
