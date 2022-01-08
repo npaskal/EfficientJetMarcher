@@ -59,7 +59,16 @@ MatrixDoub masterGradDrift(
 ) {
 	const DriftParams* params = (DriftParams*)sp;
 	switch (params->switchKey) {
-	default:
+	default: case 5: // defaults to finite differene computations of masterDrift. 
+	{
+		double delta = 1e-8;
+		return MatrixDoub(
+			(masterDrift(z + delta * PairDoub(1, 0), sp)
+				- masterDrift(z - delta * PairDoub(1, 0), sp)) / (2*delta),
+				(masterDrift(z + delta * PairDoub(0,1), sp)
+					- masterDrift(z - delta * PairDoub(0, 1), sp)) / (2*delta)
+		).transpose();
+	}
 	case 0:
 		return MatrixDoub(
 			PairDoub(
@@ -82,7 +91,7 @@ MatrixDoub masterGradDrift(
 				-3 * z.y * z.y
 			)
 		);
-	case 5:
+	case 50:
 		return MatrixDoub(
 			PairDoub(
 				-2 - 1.5 * params->a * z.x, 
@@ -126,7 +135,21 @@ TensorDoub masterHessDrift(
 ) {
 	const DriftParams* params = (DriftParams*)sp;
 	switch (params->switchKey) {
-	case 0: default:
+	default: {
+		double delta = 1e-8;
+		MatrixDoub dbX((masterGradDrift(z + delta * PairDoub(1, 0), sp)
+			- masterGradDrift(z - delta * PairDoub(1, 0), sp))
+			/ (2 * delta)),
+			dbY((masterGradDrift(z + delta * PairDoub(0, 1), sp)
+				- masterGradDrift(z - delta * PairDoub(0,1), sp))
+				/ (2 * delta));
+
+		return TensorDoub(
+			MatrixDoub(dbX.row1, dbY.row1),
+			MatrixDoub(dbX.row2, dbY.row2)
+		);
+	}
+	case 0: 
 		return TensorDoub();
 	case 3:
 		return TensorDoub(

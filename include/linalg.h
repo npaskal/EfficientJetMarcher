@@ -121,6 +121,23 @@ struct MatrixDoub {
 		row1(PairDoub(0, 0)), 
 		row2(PairDoub(0, 0)) {}
 
+	MatrixDoub transpose() {
+		return MatrixDoub(PairDoub(row1.x, row2.x), PairDoub(row1.y, row2.y));
+	}
+
+	MatrixDoub operator - (const MatrixDoub& rightArg) const {
+		return MatrixDoub( 
+			row1-rightArg.row1,
+			row2-rightArg.row2
+		);
+	}
+
+	MatrixDoub operator / (double rightArg) const {
+		return MatrixDoub(
+			row1 /rightArg,
+			row2 / rightArg
+		);
+	}
 	// multiply matrix by vector
 	friend PairDoub rightMultiply(
 		const MatrixDoub& leftArg, 
