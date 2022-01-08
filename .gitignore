@@ -1,3 +1,6 @@
-mvs/EJM/
+mvs/EJM/.vs/
+mvs/EJM/Debug/
+mvs/EJM/Release/
+mvs/EJM/x64/
 obj/
 main.exe

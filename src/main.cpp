@@ -17,6 +17,8 @@
 
 
 
+
+
 int main() {
 	/* Primary options description:
 
@@ -60,7 +62,7 @@ int main() {
 	// PRIMARY SETTINGS: -- user should modify these
 	///////////////////////////////////////////////////////////////////////////
 	///////////////////////////////////////////////////////////////////////////
-
+	#include <fstream>
 	
 	// run type (see description above)
 	char runType = 's';
@@ -71,10 +73,10 @@ int main() {
 	// set to true to use default settings for algorithm (recommended)
 	bool useDefaultSettings = true; 
 
-	int n = 257; // number of mesh points
+	int n =257; // number of mesh points
 
 	// uniform rectangular mesh constructor:
-	//		(nx, xleft, xright, ny, ybottom, ytop)
+	//		(nx, xleft, xright, ny, yleft, yright)
 	const MeshInfo mesh(n, -1.0, 1.0, n, -1.0, 1.0);
 
 	// quadrature/updater key (see description above)
@@ -84,7 +86,7 @@ int main() {
 	// drift information -- see masterDrift function in driftFunctions.cpp
 
 	// switch key for drift functions in masterDrift -- see description above
-	int speedKey = 5;
+	int speedKey = 8;
 
 	double 
 		a = 2.0,			// parameter 1 of drift function
