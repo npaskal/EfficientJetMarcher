@@ -1,0 +1,44 @@
+{\rtf1\ansi\ansicpg1252\cocoartf2580
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fswiss\fcharset0 Helvetica;\f1\fswiss\fcharset0 Helvetica-Bold;\f2\fswiss\fcharset0 Helvetica-BoldOblique;
+\f3\fnil\fcharset0 LucidaGrande;}
+{\colortbl;\red255\green255\blue255;\red0\green0\blue0;\red9\green79\blue209;\red50\green0\blue101;
+}
+{\*\expandedcolortbl;;\cssrgb\c0\c0\c0;\cssrgb\c0\c40784\c85490;\cssrgb\c25882\c392\c47059;
+}
+\margl1440\margr1440\vieww11520\viewh8400\viewkind0
+\deftab720
+\pard\pardeftab720\partightenfactor0
+
+\f0\fs24 \cf0 \expnd0\expndtw0\kerning0
+The Matlab codes listed below post-process the output of the Efficient Jet Marcher (EJM) run on the Maier-Stein model with  a = 3 and with a = 10 and compute the WKB prefactor for the invariant measure and the Bouchet-Reygner prefactor for the expected exit time. They also compute the invariant measure and the TPT transition rate for comparison. These codes are used to generate Figures 16\'9620 in 
+\f1\b N. Paskal and M. Cameron \'93
+\f2\i An efficient jet marcher for computing the quasipotential for 2D SDEs
+\f1\i0 \'94 
+\f0\b0 ({\field{\*\fldinst{HYPERLINK "https://arxiv.org/abs/2109.03424"}}{\fldrslt \cf3 \ul \ulc3 arXiv: 
+\f3\fs23\fsmilli11700 \cf4 \ulc4 2109.03424}}
+\f3\fs23\fsmilli11700 \cf4 )
+\f0\fs24 \cf0 \
+\
+
+\f1\b plot_rate_vs_epsilon.m
+\f0\b0  plots the TPT and the Bouchet-Reygner expected exit times and their prefactors vs 1/epsilon and the corresponding refactors vs epsilon  for the Maier-Stein SDE (Figures 19 (a=3) and 20 (a=10)).\
+The user should set a = 10 or a = 3 in line 6.\
+If the TPT rate data for a = 3 (or 10) are available, they are read from the data files TPTrate_a3.mat (or TPTrate_a10.mat). Otherwise, they are computed by calling the function transition rate.m with the first argument 0. \
+If the Bouchet-Reygner rate data are available, they are read from the file BRdata_a3.mat or BRdata_a10.mat. Otherwise, they are computed computed by calling the function transition rate.m with the first argument 1. \
+\
+
+\f1\b transition_rate.m
+\f0\b0  computes the transition rate for the Maier-Stein SDE using the transition path theory (flag = 0) or using the Bouchet-Reygner formula (flag = 1). Input arguments: flag (must be 0 or 1), epsilon, a (the parameter a of the Maier-Stein SDE). Output: the transition rate. It also generates the file BRdata_a3.mat (if a = 3) or BRdata_a10.mat (if a = 10) whenever the first input argument (flag) is 1. This code generates Figure 18. The MAP for a=10 is read from the file MSmap.mat.\
+\
+
+\f1\b MSprefactor.m
+\f0\b0  computes the WKB prefactor for the Maier-Stein SDE and compared the WKB approximation to the invariant measure with the invariant measure found from the eigenvector corresponding to the zero eigenvalue of the forward Kolmogorov operator. It generates figures 16 and 17a.\
+The user must set:\
+\'97The parameter a in the Maier-Stein SDE: a= 3 or a = 10 (line 5);\
+\'97The value of epsilon in the Maier-Stein SDE (line 6;\
+ If the WKB prefactor data are available, the program reads them from the corresponding mat file (see line 19). Otherwise, it reads the EJM data from the directories beta3 or beta10 depending on the value of a and performs the calculation of the WKB prefactor.\
+\
+
+\f1\b gmam.m
+\f0\b0  generates the MAP for a = 10 and saves in into the file MSmap.mat.\
+}

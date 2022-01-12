@@ -51,3 +51,5 @@ Outputs are written to the *outputs* folder (or the *mvs/EJM/outputs* folder if 
 #### Run Options
 Remaining settings are described in detail in file *main.cpp*.
 
+#### Subexponential Prefactor
+The folder *prefactor* contains all of the Matlab codes and files used to generate exponential prefactor and transition rate estimates. Instructions on how to use these scripts are included in the ReadMe in the *prefactor* folder.
